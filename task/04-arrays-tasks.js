@@ -457,7 +457,8 @@ function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 function toStringList(arr) {
-   throw new Error('Not implemented');
+  //  throw new Error('Not implemented');
+  return arr.map(item=>item+'')
 }
 
 
@@ -609,7 +610,24 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   throw new Error('Not implemented');
+  //  throw new Error('Not implemented');
+  // let mySet= new Set( array.map(item=>item.keySelector));
+  // let k=Array.from(mySet);
+  // let sort=[];
+  // k.map(i=>{
+  //   let find=array.sort(item=>item.keySelector== i);
+  //   sort.push([i,find])
+  // })
+  // return new Map(sort)
+  let b = array.map(item => item[Object.keys(item)[0]]);
+   let set = new Set(array.map(item => item[Object.keys(item)[0]]));
+   let keys = Array.from(set);
+   let sortVal = [];
+   keys.map(key => {
+      let buf = array.filter(item => keySelector(item) == key).map(item => valueSelector(item));
+      sortVal.push([key, buf]);
+   })
+   return new Map(sortVal);
 }
 
 
@@ -626,6 +644,13 @@ function group(array, keySelector, valueSelector) {
  */
 function selectMany(arr, childrenSelector) {
     // throw new Error('Not implemented');
+    let result=[];
+     result= arr.reduce((prev,curr)=>{
+      let aaa=childrenSelector(curr);
+     prev=  prev.concat(aaa)
+     return prev
+     },result )
+     return result
 }
 
 
@@ -642,7 +667,12 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let res=arr;
+    indexes.map((item, idx, arr)=>{
+      res=res[item]
+    })
+    return res
 }
 
 
@@ -665,7 +695,17 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let szHT=Math.floor(arr.length/2);
+    if(arr.length%2==0){
+      let start=arr.splice(0,szHT);
+      return arr.concat(start)
+    }
+    else {
+       let start=arr.splice(0,szHT);
+       let end=arr.splice(1,szHT)
+       return end.concat(arr, start)
+    }
 }
 
 
