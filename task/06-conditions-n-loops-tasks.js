@@ -391,7 +391,17 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let result=0;
+  let curr=num;
+  do{
+    curr+='';
+  let arr=curr.split('');
+    result=arr.reduce((prev, curr)=>Number(prev)+Number(curr));
+    curr=result;
+  }
+  while(result>10)
+  return result
 }
 
 
@@ -417,7 +427,33 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    if (str.length < 1)
+    return true
+
+    if (str.length <= 1)
+    return false
+
+  let matchingOpeningBracket, ch
+  let stack = []
+
+  let openingBrackets = ['[', '{', '(','<']
+  let closingBrackets = [']', '}', ')','>']
+
+  for (let i = 0; i < str.length; i++) {
+    ch = str[i]
+
+    if (closingBrackets.indexOf(ch) > -1) {
+      matchingOpeningBracket = openingBrackets[closingBrackets.indexOf(ch)]
+      if (stack.length == 0 || (stack.pop() != matchingOpeningBracket)) {
+        return false
+      }
+    } else {
+      stack.push(ch)
+    }
+  }
+
+  return (stack.length == 0)
 }
 
 
@@ -477,7 +513,16 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let arr=[];
+    let curr=num;
+        do{
+          let ost=curr%n;
+  
+           curr=Math.floor(curr/n);
+           arr.push(ost);
+        } while(curr>0)
+        return arr.reverse().join('')
 }
 
 
