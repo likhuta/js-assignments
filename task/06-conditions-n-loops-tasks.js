@@ -30,7 +30,19 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+
+  if(num%3==0 && num%5==0){
+    return 'FizzBuzz'
+  }
+  else if(num%3==0){
+    return 'Fizz'
+  }
+  else if(num%5==0){
+    return 'Buzz'
+  }
+  return num
+
 }
 
 
@@ -46,7 +58,13 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let result=1;
+    if(n<1){
+      return 1
+    }
+
+    return n*getFactorial(n-1)
 }
 
 
@@ -63,7 +81,15 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+
+    let count=n1;
+    let result=n1;
+    while(count<n2){
+      count++;
+      result+=count
+    }
+    return result
 }
 
 
@@ -82,7 +108,15 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    if(a<b+c && c<a+b && b<c+a)
+{
+return true
+}
+else{
+  return false
+}
+
 }
 
 
@@ -119,7 +153,18 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    if(((rect1.top <= rect2.top) &&  (rect2.top<=rect1.top +rect1.height)) &&
+    ((rect1.left  <=rect2.left) && (rect2.left<= rect1.left+rect1.width) ) 
+    || ((rect2.top <= rect1.top) &&  (rect1.top<=rect2.top +rect2.height)) &&
+    ((rect2.left  <=rect1.left) && (rect1.left<= rect2.left+rect2.width) ) 
+    ){
+      return true;
+    }
+    else {
+      return false
+    }
+
 }
 
 
@@ -150,7 +195,20 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+
+let a=point.x;
+let b=point.y;
+let r=circle.radius;
+let x=circle.center.x;
+let y=circle.center.y
+
+    let dist_points = (a - x) * (a - x) + (b - y) * (b - y);
+    r *= r;
+    if (dist_points < r) {
+        return true;
+    }
+    return false;
 }
 
 
@@ -166,7 +224,14 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    for (var i = 0; i < str.length; i++) {
+      var c = str.charAt(i);
+      if (str.indexOf(c) == i && str.indexOf(c, i + 1) == -1) {
+        return c;
+      }
+    }
+    return null;
 }
 
 
@@ -192,7 +257,27 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let order=[];  
+    (a<b)?order.push(a,', ',b):order.push(b,', ',a)
+  let str=[];
+  if(isStartIncluded){
+    str.push('[')
+    str=str.concat(order)
+  }
+  else if (!isStartIncluded){
+    str.push('(')
+    str=str.concat(order)
+  };
+
+  if(isEndIncluded){
+    str.push(']')
+  }
+  else if (!isEndIncluded){
+    str.push(')')
+  }
+
+  return str.join('')
 }
 
 
@@ -209,7 +294,9 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+   let arr=str.split('');
+   return arr.reverse().join('')
 }
 
 
@@ -226,7 +313,10 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    num+='';
+    let arr=num.split('');
+    return Number(arr.reverse().join(''))
 }
 
 
@@ -251,7 +341,38 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    var inputNum = ccn.toString();
+    var sum = 0;
+    var doubleUp = false;
+
+    /* from the right to left, double every other digit starting with the second to last digit.*/
+    for (var i = inputNum.length - 1; i >= 0; i--)
+    {
+        var curDigit = parseInt(inputNum.charAt(i));
+
+        /* double every other digit starting with the second to last digit */
+        if(doubleUp)
+        {
+            /* doubled number is greater than 9 than subtracted 9 */
+            if((curDigit*2) > 9)
+            {
+              sum +=( curDigit*2)-9;
+            }
+            else
+            {
+              sum += curDigit*2;
+            }
+        }
+        else
+        {
+          sum += curDigit;
+        }
+        var doubleUp =!doubleUp
+    }
+
+  /* sum and divide it by 10. If the remainder equals zero, the original credit card number is valid.  */
+  return (sum % 10) == 0  ? true : false;
 }
 
 
