@@ -22,7 +22,8 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+  //  throw new Error('Not implemented');
+  return Date.parse(value)
 }
 
 /**
@@ -37,7 +38,9 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+  //  throw new Error('Not implemented');
+  return Date.parse(value)
+
 }
 
 
@@ -56,7 +59,9 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+  //  throw new Error('Not implemented');
+  let year=date.getFullYear()
+  return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 }
 
 
@@ -76,7 +81,29 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+  //  throw new Error('Not implemented');
+  let hour=endDate.getHours()-startDate.getHours();
+  let min=endDate.getMinutes()-startDate.getMinutes();
+  let sec=endDate.getSeconds()-startDate.getSeconds();
+  let msec=endDate.getMilliseconds()-startDate.getMilliseconds();
+
+    if(hour<10){
+      hour='0'+hour
+    }
+    if(min<10){
+      min='0'+min
+    }
+    if(sec<10){
+      sec='0'+sec
+    }
+    if(msec<100 && msec>=10){
+      msec='0'+msec
+    }
+    if(msec<10 ){
+      msec='00'+msec
+    }
+  return `${hour}:${min}:${sec}.${msec}`
+
 }
 
 
@@ -94,8 +121,23 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
-}
+    // throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    console.log( date)
+    let hours=date.getUTCHours();
+    let minutes=date.getUTCMinutes()
+    console.log(hours, minutes)
+    hours = hours % 12;
+ 
+  
+ var hourMinPart = 0.5 * minutes, 
+    hourHourPart = 30 * hours, 
+    minAngle = 6 * minutes, 
+    totalAngle = (hourMinPart + hourHourPart - minAngle); 
+    
+ 
+ return  totalAngle*Math.PI/180; 
+  }
 
 
 module.exports = {
