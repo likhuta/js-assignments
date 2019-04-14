@@ -70,8 +70,20 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-    throw new Error('Not implemented');
+function getPolynom(...param) {
+  
+  let arr=Array.of(...param);
+  if(!arr.length){
+    res=null
+  }
+
+  return function(x){
+    let res=0;
+    arr.forEach((item,index)=>{
+      res+=item*Math.pow(x,arr.length-index-1);
+    })
+    return res
+  }
 }
 
 
@@ -90,7 +102,14 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+  var calls = {};
+  return function() {
+    var key = JSON.stringify(arguments);
+    if (!(key in calls)) {
+      calls[key] = func.apply(null, arguments);
+    }
+    return calls[key];
+  };
 }
 
 
@@ -110,9 +129,23 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return function(){
+     
+       for(let i=0; i<=attempts; i++){
+        try{
+         let res=func();
+         return res
+       }
+      
+      catch (e) {
+        
+      }
+    }
+   // return attempts
 }
 
+}
 
 /**
  * Returns the logging wrapper for the specified method,
@@ -139,6 +172,15 @@ function retry(func, attempts) {
  */
 function logger(func, logFunc) {
     throw new Error('Not implemented');
+    // let calls = 0
+    // let all = []
+    // let val
+    
+    // const spy = function(...args) {
+    //   calls++
+    //   all.push(...args)
+    //   val = func.apply(this, args)
+    //   return val
 }
 
 
