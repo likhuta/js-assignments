@@ -88,7 +88,59 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+
+    function diagonals(n) {
+      function diags(xs, iCol, iRow) {
+          if (iCol < xs.length) {
+              var xxs = splitAt(iCol, xs);
+
+              return [xxs[0]].concat(diags(
+                  xxs[1],
+                  (iCol + (iRow < n ? 1 : -1)),
+                  iRow + 1
+              ));
+          } else return [xs];
+      }
+
+      return diags(range(0, n * n - 1), 1, 1);
+  }
+
+  function nHeads(n, lst) {
+      var zipEdge = lst.slice(0, n);
+
+      return lst.length ? [zipEdge.map(function (x) {
+          return x[0];
+      })].concat(nHeads(n, [].concat.apply([], zipEdge.map(function (
+              x) {
+              return x.length > 1 ? [x.slice(1)] : [];
+          }))
+          .concat(lst.slice(n)))) : [];
+  }
+
+  function range(m, n, delta) {
+      var d = delta ||1,
+          blnUp = n > m,
+          lng = Math.floor((blnUp ? n - m : m - n) / d) + 1,
+          a = Array(lng),
+          i = lng;
+
+      if (blnUp)
+          while (i--) a[i] = (d * i) + m;
+      else
+          while (i--) a[i] = m - (d * i);
+      return a;
+  }
+
+  function splitAt(n, xs) {
+      return [xs.slice(0, n), xs.slice(n)];
+  }
+  return nHeads(n, diagonals(n)
+      .map(function (x, i) {
+          i % 2 || x.reverse();
+          return x;
+      }));
+
 }
 
 

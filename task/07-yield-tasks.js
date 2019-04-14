@@ -33,8 +33,50 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let num=99;
+    let count=0;
+    let lastCount=0;
+    while(num>=1){
+      
+      if(count%2==0){
+        if(num==1){
+          yield `1 bottle of beer on the wall, 1 bottle of beer.`;
+        }
+       
+        else{
+          yield `${num} bottles of beer on the wall, ${num} bottles of beer.`;
+        }
+        num--;
+        count++;
+      }
+      if(count%2!=0){
+        if(num==1){
+          yield `Take one down and pass it around, ${num} bottle of beer on the wall.`;
+        }
+        else if(num==0){
+          yield `Take one down and pass it around, no more bottles of beer on the wall.`;
+          lastCount++;
+          num--
+        }
+        else{
+          yield `Take one down and pass it around, ${num} bottles of beer on the wall.`;
+
+        }
+       count++;
+      }
+    }
+  
+   if(lastCount==1){
+    yield `No more bottles of beer on the wall, no more bottles of beer.`;
+  lastCount++;
+   }
+   if(lastCount==2){
+    yield `Go to the store and buy some more, 99 bottles of beer on the wall.`;
+  
+   }
 }
+
 
 
 /**
@@ -47,7 +89,24 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let count=0;
+    if(count==0){
+      yield 0;
+      count++
+    }
+    var fn1 = 1;
+    var fn2 = 1;
+    while (true){  
+      var current = fn2;
+      fn2 = fn1;
+      fn1 = fn1 + current;
+      var reset = yield current;
+      if (reset){
+          fn1 = 1;
+          fn2 = 1;
+      }
+    }
 }
 
 
