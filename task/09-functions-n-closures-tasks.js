@@ -172,15 +172,9 @@ function retry(func, attempts) {
  */
 function logger(func, logFunc) {
     throw new Error('Not implemented');
-    // let calls = 0
-    // let all = []
-    // let val
-    
-    // const spy = function(...args) {
-    //   calls++
-    //   all.push(...args)
-    //   val = func.apply(this, args)
-    //   return val
+
+
+ 
 }
 
 

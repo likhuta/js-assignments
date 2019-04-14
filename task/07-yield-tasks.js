@@ -141,7 +141,15 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    const stack = [];
+    stack.push(root);
+
+    while (stack.length) {
+        let curr = stack.pop();
+        yield  curr;
+        if (curr.children) curr.children.reverse().forEach(e => stack.push(e));  
+    }
 }
 
 
