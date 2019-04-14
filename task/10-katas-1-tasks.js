@@ -165,7 +165,30 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let bigArr=[]; //[1,3]
+    let res=true;
+    for(let i=0; i<=dominoes.length-1; i++){
+      if(i==0){
+        bigArr= bigArr.concat(dominoes[i])
+      }
+      else {
+        dominoes[i].forEach(item => {
+          if( item==bigArr[0] || item==bigArr[1]){
+            dominoes[i].forEach(item=>bigArr.unshift(item))
+            }
+          else if( item==bigArr[bigArr.length-1] || item== bigArr[bigArr.length-2]){
+            bigArr= bigArr.concat(dominoes[i])
+          }
+          else {
+            // console.log('dsdsd')
+            res=false
+          }
+        });
+      }
+    }
+    // console.log(bigArr)
+   return res
 }
 
 
