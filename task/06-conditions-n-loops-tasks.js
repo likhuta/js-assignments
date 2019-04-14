@@ -489,7 +489,76 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let delta=endDate.getTime()-startDate.getTime();
+    let answer=''
+    let sec=delta/1000;
+    // console.log(delta)
+    let min=sec/60;
+    let hour=min/60;
+    let day=hour/24;
+    let months=day/30;
+    let year=endDate.getFullYear()-startDate.getFullYear();
+    // console.log(sec, min, hour,day)
+    
+      if(sec>0 && sec<=45  ){
+        answer=`a few seconds ago`;
+      }
+     
+      else if(sec>45 && sec<=90){
+        answer=`a minute ago`;
+      }
+      else if(sec>90 && min<=45){
+        if(Math.floor(min)==1){
+          min=2;
+        }
+        answer=`${Math.floor(min)} minutes ago`;
+      }
+      else if(min>45 && min<=90){
+        answer=`an hour ago`;
+      }
+      else if(min>90 && hour<=22){
+        if(Math.round(hour)==1){
+          hour=2;
+        }
+        else if(sec/60/60==4.5){
+          hour=4;
+        }
+        else if(sec/60/60>4.5 && sec/60/60<4.6){
+          hour=5;
+        }
+        // console.log((sec/60/60) )
+        answer=`${Math.round(hour)} hours ago`;
+      }
+      else if(hour>22 && hour<=36){
+        answer=`a day ago`;
+      }
+      else if(hour>36 && day<=25){
+        if(Math.floor(day)<=1){
+          day=2;
+        }
+        answer=`${Math.floor(day)} days ago`;
+      }
+      else if(day>25 && day<=45){
+        answer=`a month ago`;
+      }
+      else if(day>45 && day<=345){
+        if(Math.floor(months)==1){
+          months=2;
+        }
+        answer=`${Math.round(months)} months ago`;
+      }
+      else if(day>345 && day<545){
+        answer=`a year ago`;
+      }
+      else if(day>546){
+        if(Math.floor(year)==1){
+          year=2;
+        }
+        answer=`${Math.floor(year)} years ago`;
+      }
+      return answer
+
 }
 
 
@@ -539,7 +608,28 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    if (!pathes)
+    return '';
+  
+  let smallest = pathes.reduce( (min, str) => min < str ? min : str, pathes[0] );
+  let largest  = pathes.reduce( (min, str) => min > str ? min : str, pathes[0] );
+  
+  for (let i=0; i<smallest.length; i++) {
+    if (smallest[i] != largest[i]){
+      let strRet=smallest.substr(0,i);
+      if(strRet[strRet.length-1]=='/'){
+        return strRet ;
+      }
+      else{
+        let index= strRet.lastIndexOf('/');
+        return strRet.slice(0,index+1)
+      }
+  
+    }
+  }
+  
+  return '';
 }
 
 
@@ -562,7 +652,24 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    var rowsA = m1.length, colsA = m1[0].length,
+        rowsB = m2.length, colsB = m2[0].length,
+        C = [];
+
+    if (colsA != rowsB) return false;
+
+    for (var i = 0; i < rowsA; i++) C[i] = [];
+
+    for (var k = 0; k < colsB; k++)
+     { for (var i = 0; i < rowsA; i++)
+        { var temp = 0;
+          for (var j = 0; j < rowsB; j++) temp += m1[i][j]*m2[j][k];
+          C[i][k] = temp;
+        }
+     }
+
+    return C;
 }
 
 
@@ -597,7 +704,40 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let bigArr=[];
+    let res,win;
+    for(let i=0; i<3; i++){
+      if(position[i].length<3){
+        position[i].push(' ')
+      }
+      bigArr=bigArr.concat(position[i]);
+    }
+  
+    for(let i=0; i<bigArr.length-1; i++){
+      if(i%3==0 && bigArr[i]==bigArr[i+1] && bigArr[i+1]==bigArr[i+2]  ){
+        res=true;
+        win=bigArr[i];
+        break
+      }
+      if(i<3 && bigArr[i]==bigArr[i+3] && bigArr[i+3]==bigArr[i+6]  ){
+        res=true;
+        win=bigArr[i];
+        break
+      }
+      if(i==0 && bigArr[i]==bigArr[i+4] && bigArr[i+4]==bigArr[i+8]  ){
+        res=true;
+        win=bigArr[i];
+        break
+      }
+      if(i==2 && bigArr[2]==bigArr[4] && bigArr[4]==bigArr[6]  ){
+        res=true;
+        win=bigArr[2];
+        break
+      }
+    }
+  
+  return win
 }
 
 

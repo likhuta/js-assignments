@@ -126,7 +126,7 @@ function getRegexForSSN() {
  */
 function getPasswordValidator(minLength) {
   //  throw new Error('Not implemented');
-  let reg=/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+  let reg = (?!.*[\\s])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z^0-9]{${minLength},};
   return reg
 }
 
